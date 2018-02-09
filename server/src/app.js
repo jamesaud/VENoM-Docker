@@ -5,7 +5,6 @@ const morgan = require('morgan')
 
 var Post = require("../models/posts");
 
-
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
@@ -16,7 +15,6 @@ var mongoose = require('mongoose');
 
 var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost:27017'
 mongoose.connect(`mongodb://${DATABASE_URL}:27017/posts`);
-
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
@@ -35,7 +33,7 @@ app.get('/posts', (req, res) => {
 });
 
  
-// Add new post
+// Post Endpoints
 app.post('/posts', (req, res) => {
   var db = req.db;
   var title = req.body.title;
@@ -55,8 +53,6 @@ app.post('/posts', (req, res) => {
     })
   })
 })
-
-
 
 // Fetch single post
 app.get('/post/:id', (req, res) => {
@@ -86,7 +82,6 @@ app.put('/posts/:id', (req, res) => {
   })
 })
 
-
 // Delete a post
 app.delete('/posts/:id', (req, res) => {
   var db = req.db;
@@ -100,8 +95,6 @@ app.delete('/posts/:id', (req, res) => {
     })
   })
 })
-
-// SERVER End
 
 
 app.listen(process.env.PORT || 8081)
