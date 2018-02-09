@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  client:
+    build: ./client
+    ports:
+      - 8080:8080
+    volumes:
+      - ./client:/data
+    environment:
+      - API_URL=http://localhost:8081/
+
+
+  server:
+    build: ./server
+    ports:
+      - 8081:8081
+    volumes:
+      - ./server:/data
+    depends_on: 
+      - server-database
+    environment:
+      - DATABASE_URL=server-database
+    
+  server-database:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db
+
+    
