@@ -5,7 +5,7 @@ Vue, Express, Node, Mongo with Docker-compose setup for local development. Hot R
 
 1. Clone this repository
 
-> https://github.com/jamesaud/VENoM-Docker
+> git clone https://github.com/jamesaud/VENoM-Docker
 
 2. Navigate into the directory VENoM-Docker
 
