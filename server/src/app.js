@@ -13,7 +13,7 @@ app.use(cors())
 // DB Setup
 var mongoose = require('mongoose');
 
-var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost:27017'
+var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost'
 mongoose.connect(`mongodb://${DATABASE_URL}:27017/posts`);
 
 var db = mongoose.connection;
