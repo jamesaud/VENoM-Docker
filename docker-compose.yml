@@ -19,7 +19,7 @@ services:
     depends_on: 
       - server-database
     environment:
-      - DATABASE_URL=server-database
+      - DATABASE_URL=server-database:27017
     
   server-database:
     image: mongo
