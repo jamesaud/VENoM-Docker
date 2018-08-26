@@ -23,11 +23,11 @@ https://medium.com/@audretschjames/venom-stack-docker-setup-for-local-developmen
 
 > docker-compose up
 
-Your app should be running on (if using native docker): 
+Your app should be running on (if using native docker).: 
 
 http://localhost:8080
 
-Happy developing! 
+Be patient and wait for all for all of the NPM warnings to finish - this will only happen once. Happy developing! 
 
 
 ### Configuration
