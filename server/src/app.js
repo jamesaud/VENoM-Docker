@@ -14,7 +14,7 @@ app.use(cors())
 var mongoose = require('mongoose');
 
 var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost'
-mongoose.connect(`mongodb://${DATABASE_URL}/posts`);
+mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
