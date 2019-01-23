@@ -14,15 +14,31 @@ app.use(cors())
 var mongoose = require('mongoose');
 
 var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost'
-mongoose.connect(`mongodb://${DATABASE_URL}/posts`);
+mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true });
 
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
+
+db.on('error', function (error) {
+  // If first connect fails because server-database is'nt up yet, try again.
+  // This is only needed for first connect, not for runtime reconnects.
+  // See: https://github.com/Automattic/mongoose/issues/5169
+  if (error.message && error.message.match(/failed to connect to server .* on first connect/)) {
+    setTimeout(function () {
+      mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true }).catch(() => {
+        // empty catch avoids unhandled rejections
+      });
+    }, 20 * 1000);
+  } else {
+    // Some other error occurred.  Log it.
+    console.error(new Date(), String(error));
+  }
+});
+
 db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
 
-// SERVER Setup 
+// SERVER Setup
 app.get('/posts', (req, res) => {
   Post.find({}, 'title description', function (error, posts) {
     if (error) { console.error(error); }
@@ -32,7 +48,7 @@ app.get('/posts', (req, res) => {
   }).sort({_id:-1})
 });
 
- 
+
 // Post Endpoints
 app.post('/posts', (req, res) => {
   var db = req.db;
