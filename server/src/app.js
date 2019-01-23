@@ -19,7 +19,7 @@ mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true });
 var db = mongoose.connection;
 
 db.on('error', function (error) {
-  // If first connect fails because server-database is'nt up yet, try again.
+  // If first connect fails because server-database isn't up yet, try again.
   // This is only needed for first connect, not for runtime reconnects.
   // See: https://github.com/Automattic/mongoose/issues/5169
   if (error.message && error.message.match(/failed to connect to server .* on first connect/)) {
